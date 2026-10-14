@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -87,7 +88,6 @@ fun TaskScreen(viewModel: TaskViewModel) {
     val searchQuery by viewModel.searchQuery.collectAsState()
     val currentFilter by viewModel.filter.collectAsState()
     val selectedCategory by viewModel.selectedCategory.collectAsState()
-    val sortOption by viewModel.sortOption.collectAsState()
     val isSyncing by viewModel.isCloudSyncing.collectAsState()
 
     var showAddDialog by remember { mutableStateOf(false) }
@@ -125,7 +125,7 @@ fun TaskScreen(viewModel: TaskViewModel) {
                     // 5. Menú de Ordenar Tareas
                     Box {
                         IconButton(onClick = { showSortMenu = true }) {
-                            Icon(Icons.Default.Sort, contentDescription = "Ordenar")
+                            Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "Ordenar")
                         }
                         DropdownMenu(
                             expanded = showSortMenu,
@@ -422,7 +422,7 @@ fun TaskAddEditDialog(
                 // 7. Selector de Prioridad (Alta, Media, Baja)
                 Text("Prioridad:", fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Priority.values().forEach { priority ->
+                    Priority.entries.forEach { priority ->
                         FilterChip(
                             selected = selectedPriority == priority,
                             onClick = { selectedPriority = priority },
